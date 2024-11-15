@@ -24,6 +24,13 @@ ActiveAdmin.register Product do
       row "Category" do |product|
         product.category&.category_name
       end
+      row "Image" do |product|
+        if product.image.attached?
+          image_tag url_for(product.image), size: "200x200"
+        else
+          "No Image Available"
+        end
+      end
     end
   end
 
@@ -34,7 +41,7 @@ ActiveAdmin.register Product do
       f.input :price
       f.input :stock_quantity
       f.input :category, as: :select, collection: Category.all.pluck(:category_name, :id)
-      f.input :image, as: :file
+      f.input :image, as: :file, hint: (f.object.image.attached? ? image_tag(url_for(f.object.image), size: "100x100") : "No image uploaded")
     end
     f.actions
   end
