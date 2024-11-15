@@ -1,0 +1,32 @@
+<h1>All Products</h1>
+
+<div class="products-container">
+  <% @products.each do |product| %>
+    <div class="product-card">
+      <% if product.image.attached? %>
+        <%= image_tag url_for(product.image), size: "200x200", alt: product.product_name %>
+      <% else %>
+        <p>No Image Available</p>
+      <% end %>
+      <h3><%= product.product_name %></h3>
+      <p><%= product.description %></p>
+      <p><strong>Price:</strong> $<%= product.price %></p>
+      <p><strong>Category:</strong> <%= product.category&.category_name %></p>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    width: 250px;
+  }
+</style>
