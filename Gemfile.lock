@@ -364,6 +364,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.1)
+  ransack
   rubocop-rails-omakase
   sass-rails
   sassc-rails

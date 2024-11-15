@@ -1,15 +1,21 @@
-<h1 style="text-align: center;">All Products</h1>
+<h1>Product Search</h1>
 
-<div class="category-filter" style="text-align: center; margin-bottom: 20px;">
-  <label for="category-filter">Filter by Category:</label>
-  <select id="category-filter" onchange="location = this.value;">
-    <option value="<%= products_path %>">All Categories</option>
-    <% @categories.each do |category| %>
-      <option value="<%= category_products_path(category) %>" <%= "selected" if params[:category_id].to_i == category.id %>>
-        <%= category.category_name %>
-      </option>
-    <% end %>
-  </select>
+<div class="search-form">
+  <%= search_form_for @q, url: products_path, method: :get do |f| %>
+    <div>
+      <%= f.label :product_name_or_description_cont, "Search by keyword" %>
+      <%= f.search_field :product_name_or_description_cont, placeholder: "Enter keyword..." %>
+    </div>
+
+    <div>
+      <%= label_tag :category_id, "Filter by Category" %>
+      <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :category_name, selected: params[:category_id]), include_blank: "All Categories" %>
+    </div>
+
+    <div>
+      <%= f.submit "Search" %>
+    </div>
+  <% end %>
 </div>
 
 <div class="products-container">
@@ -22,13 +28,18 @@
       <% end %>
       <h3><%= product.product_name %></h3>
       <p><%= product.description %></p>
-      <p><strong>Price:</strong> $<%= product.price %></p>
+      <p><strong>Price:</strong> <%= product.price %></p>
       <p><strong>Category:</strong> <%= product.category&.category_name %></p>
     </div>
   <% end %>
 </div>
 
 <style>
+  .search-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
   .products-container {
     display: flex;
     flex-wrap: wrap;

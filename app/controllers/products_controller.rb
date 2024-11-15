@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
   def index
+    @q = Product.ransack(params[:q])
     @categories = Category.all
+
     if params[:category_id].present?
-      @products = Product.where(category_id: params[:category_id]).includes(:image_attachment, :category)
+      @products = @q.result.includes(:category).where(category_id: params[:category_id])
     else
-      @products = Product.includes(:image_attachment, :category)
+      @products = @q.result.includes(:category)
     end
   end
 end
