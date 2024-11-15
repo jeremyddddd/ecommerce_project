@@ -1,4 +1,16 @@
-<h1>All Products</h1>
+<h1 style="text-align: center;">All Products</h1>
+
+<div class="category-filter" style="text-align: center; margin-bottom: 20px;">
+  <label for="category-filter">Filter by Category:</label>
+  <select id="category-filter" onchange="location = this.value;">
+    <option value="<%= products_path %>">All Categories</option>
+    <% @categories.each do |category| %>
+      <option value="<%= category_products_path(category) %>" <%= "selected" if params[:category_id].to_i == category.id %>>
+        <%= category.category_name %>
+      </option>
+    <% end %>
+  </select>
+</div>
 
 <div class="products-container">
   <% @products.each do |product| %>
@@ -20,14 +32,16 @@
   .products-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
   }
   .product-card {
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     width: 250px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 </style>
