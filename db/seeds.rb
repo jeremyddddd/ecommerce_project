@@ -1,10 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'csv'
+
+categories = [ "spatula", "lighter", "knives", "rice_cooker" ]
+categories.each do |category_file|
+  category_name = category_file.split('.').first.capitalize
+  category = Category.create!(category_name: category_name)
+
+  csv_path = Rails.root.join("db/seeds/#{category_file}.csv")
+  CSV.foreach(csv_path, headers: true) do |row|
+    Product.create!(
+      product_name: row['product_name'],
+      description: row['description'],
+      price: row['price'],
+      stock_quantity: rand(10..100),
+      category: category
+    )
+  end
+end
+
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
