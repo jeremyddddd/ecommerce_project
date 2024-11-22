@@ -9,4 +9,8 @@ class ProductsController < ApplicationController
       @products = @q.result.includes(:category)
     end
   end
+
+  def show
+    @product = Product.find(params[:id])
+  end
 end

@@ -18,3 +18,6 @@ categories.each do |category_file|
 end
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+Page.create(title: "About", content: "This is the about page content.", slug: "about")
+Page.create(title: "Contact", content: "This is the contact page content.", slug: "contact")

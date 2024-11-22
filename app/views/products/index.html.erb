@@ -27,9 +27,12 @@
         <p>No Image Available</p>
       <% end %>
       <h3><%= product.product_name %></h3>
-      <p><%= product.description %></p>
+      <p><%= product.description.truncate(100) %></p>
       <p><strong>Price:</strong> <%= product.price %></p>
       <p><strong>Category:</strong> <%= product.category&.category_name %></p>
+
+      <!-- Add link to the product details page -->
+      <%= link_to "View Details", product_path(product), class: "button" %>
     </div>
   <% end %>
 </div>
@@ -54,5 +57,22 @@
     width: 250px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .product-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+  }
+  .button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .button:hover {
+    background-color: #0056b3;
   }
 </style>
