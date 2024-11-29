@@ -18,6 +18,13 @@
   <% end %>
 </div>
 
+<div class="filter-buttons">
+  <%= link_to "All Products", products_path, class: "button" %>
+  <%= link_to "On Sale", products_path(filter: "on_sale"), class: "button" %>
+  <%= link_to "New Products", products_path(filter: "new"), class: "button" %>
+  <%= link_to "Recently Updated", products_path(filter: "recently_updated"), class: "button" %>
+</div>
+
 <div class="products-container">
   <% @products.each do |product| %>
     <div class="product-card">
@@ -30,8 +37,9 @@
       <p><%= product.description.truncate(100) %></p>
       <p><strong>Price:</strong> <%= product.price %></p>
       <p><strong>Category:</strong> <%= product.category&.category_name %></p>
-
-      <!-- Add link to the product details page -->
+      <% if product.on_sale %>
+        <p><strong>Sale Price:</strong> <%= product.sale_price %></p>
+      <% end %>
       <%= link_to "View Details", product_path(product), class: "button" %>
     </div>
   <% end %>
@@ -42,6 +50,21 @@
     margin-bottom: 20px;
     display: flex;
     gap: 10px;
+  }
+  .filter-buttons {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .filter-buttons .button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .filter-buttons .button:hover {
+    background-color: #0056b3;
   }
   .products-container {
     display: flex;
@@ -73,6 +96,4 @@
     border-radius: 4px;
   }
   .button:hover {
-    background-color: #0056b3;
-  }
-</style>
+    background-co

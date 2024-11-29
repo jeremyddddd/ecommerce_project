@@ -25,6 +25,7 @@ gem "active_storage_validations"
 gem "sass-rails"
 gem "sassc-rails"
 gem "ransack"
+gem "kaminari"
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]

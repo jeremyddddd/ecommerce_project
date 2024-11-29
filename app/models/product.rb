@@ -11,4 +11,8 @@ class Product < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "category", "image_attachment", "image_blob", "order_details", "orders" ]
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w[on_sale sale_price created_at updated_at product_name description category_id]
+  end
 end
