@@ -20,6 +20,8 @@ class ProductsController < ApplicationController
     if params[:filter] == "recently_updated"
       @products = @products.where("updated_at >= ?", 3.days.ago).where("created_at < updated_at")
     end
+
+    @products = @products.page(params[:page]).per(10)
   end
 
   def show
