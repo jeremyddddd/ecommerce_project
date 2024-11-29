@@ -23,6 +23,7 @@ Page.create(title: "About", content: "This is the about page content.", slug: "a
 Page.create(title: "Contact", content: "This is the contact page content.", slug: "contact")
 
 Province.create([
+  { name: "Manitoba" },
   { name: "Ontario" },
   { name: "Quebec" },
   { name: "British Columbia" },
