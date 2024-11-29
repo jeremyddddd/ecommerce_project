@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_040657) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_29_063318) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_040657) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.string "status"
     t.datetime "created_at", null: false
@@ -132,7 +138,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_040657) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "province_id"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -142,4 +155,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_040657) do
   add_foreign_key "orders", "statuses"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "users", "provinces"
 end
