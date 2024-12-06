@@ -7,7 +7,7 @@ ActiveAdmin.register User do
   filter :last_name
   filter :phone_number
   filter :address
-  filter :province, as: :select, collection: Province.all.pluck(:name, :id)
+  filter :province, as: :select, collection: -> { Province.all.pluck(:name, :id) }
 
   index do
     selectable_column

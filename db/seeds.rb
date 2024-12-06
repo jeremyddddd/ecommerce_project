@@ -10,7 +10,7 @@ categories.each do |category_file|
     Product.create!(
       product_name: row['product_name'],
       description: row['description'],
-      price: row['price'],
+      price: row['price'].gsub(/[^\d\.]/, '').to_f,
       stock_quantity: rand(10..100),
       category: category
     )
