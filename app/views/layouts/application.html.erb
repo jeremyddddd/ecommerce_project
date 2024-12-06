@@ -19,15 +19,20 @@
   <body>
     <header>
       <nav>
-        <ul>
-          <% if user_signed_in? %>
-            <li><%= link_to "Edit Account", edit_user_registration_path %></li>
-            <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
-          <% else %>
-            <li><%= link_to "Sign In", new_user_session_path %></li>
-            <li><%= link_to "Sign Up", new_user_registration_path %></li>
-          <% end %>
-          <li><%= link_to "Home", root_path %></li>
+        <ul class="nav-menu">
+          <div class="left-menu">
+            <% if user_signed_in? %>
+              <li><%= link_to "Edit Account", edit_user_registration_path %></li>
+              <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to "Sign In", new_user_session_path %></li>
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <% end %>
+            <li><%= link_to "Home", root_path %></li>
+          </div>
+          <div class="right-menu">
+            <li><%= link_to "Cart", cart_path, class: "cart-link" %></li>
+          </div>
         </ul>
       </nav>
     </header>
@@ -35,5 +40,45 @@
     <main>
       <%= yield %>
     </main>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      header nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .nav-menu {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-menu .left-menu {
+        display: flex;
+        gap: 15px;
+      }
+      .nav-menu .right-menu {
+        margin-left: auto;
+      }
+      .nav-menu li {
+        display: inline;
+      }
+      .nav-menu a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+      }
+      .nav-menu a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </body>
 </html>
