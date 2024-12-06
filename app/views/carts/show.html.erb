@@ -35,7 +35,50 @@
     </tbody>
   </table>
 
-  <p>Total: <%= number_to_currency(@products.sum { |product| product.price * @cart[product.id.to_s] }) %></p>
+  <p>Subtotal: <%= number_to_currency(@products.sum { |product| product.price * @cart[product.id.to_s] }) %></p>
+
+  <div class="checkout-section">
+    <%= link_to "Proceed to Checkout", new_checkout_path, class: "button checkout-button" %>
+  </div>
 <% end %>
 
 <%= link_to "Continue Shopping", products_path, class: "button" %>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f4f4f4;
+  }
+  .button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .button:hover {
+    background-color: #0056b3;
+  }
+  .quantity-field {
+    width: 50px;
+  }
+  .checkout-section {
+    margin-top: 20px;
+    text-align: right;
+  }
+  .checkout-button {
+    background-color: #28a745;
+  }
+  .checkout-button:hover {
+    background-color: #218838;
+  }
+</style>

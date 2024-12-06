@@ -1,0 +1,32 @@
+<h1>Invoice</h1>
+
+<p><strong>Order Date:</strong> <%= @order.order_date %></p>
+<p><strong>Order Number:</strong> <%= @order.id %></p>
+
+<h2>Order Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order_items.each do |item| %>
+      <tr>
+        <td><%= item[:product].product_name %></td>
+        <td><%= item[:quantity] %></td>
+        <td><%= number_to_currency(item[:price]) %></td>
+        <td><%= number_to_currency(item[:quantity] * item[:price]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><strong>Subtotal:</strong> <%= number_to_currency(@subtotal) %></p>
+<p><strong>Taxes:</strong> <%= number_to_currency(@total_taxes) %></p>
+<p><strong>Total:</strong> <%= number_to_currency(@total) %></p>
+
+<%= link_to "Back to Home", root_path, class: "button" %>

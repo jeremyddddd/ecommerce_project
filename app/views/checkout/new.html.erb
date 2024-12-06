@@ -1,2 +1,98 @@
-<h1>Checkout#new</h1>
-<p>Find me in app/views/checkout/new.html.erb</p>
+<h1>Checkout</h1>
+
+<% if @address_missing || @province_missing %>
+  <p>Please provide the missing details below:</p>
+  <%= form_for(current_user, url: user_registration_path, method: :patch) do |f| %>
+    <% if @address_missing %>
+      <div>
+        <%= f.label :address, "Address" %>
+        <%= f.text_area :address, placeholder: "Enter your address" %>
+      </div>
+    <% end %>
+    <% if @province_missing %>
+      <div>
+        <%= f.label :province_id, "Province" %>
+        <%= f.collection_select :province_id, Province.all, :id, :name, include_blank: "Select your province" %>
+      </div>
+    <% end %>
+    <%= f.submit "Update Details" %>
+  <% end %>
+<% end %>
+
+<h2>Cart Summary</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |item| %>
+      <tr>
+        <td><%= item[:product].product_name %></td>
+        <td><%= item[:quantity] %></td>
+        <td><%= number_to_currency(item[:subtotal]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Tax Breakdown</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Tax Type</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GST</td>
+      <td><%= number_to_currency(@gst) %></td>
+    </tr>
+    <tr>
+      <td>PST</td>
+      <td><%= number_to_currency(@pst) %></td>
+    </tr>
+    <tr>
+      <td>HST</td>
+      <td><%= number_to_currency(@hst) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Subtotal:</strong> <%= number_to_currency(@subtotal) %></p>
+<p><strong>Total Taxes:</strong> <%= number_to_currency(@total_taxes) %></p>
+<p><strong>Grand Total:</strong> <%= number_to_currency(@total) %></p>
+
+<%= button_to "Confirm and Place Order", checkout_index_path, method: :post, class: "button" %>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f4f4f4;
+  }
+  .button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: bold;
+  }
+  .button:hover {
+    background-color: #0056b3;
+  }
+</style>

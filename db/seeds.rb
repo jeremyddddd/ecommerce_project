@@ -29,3 +29,9 @@ Province.create([
   { name: "British Columbia", gst: 5.0, pst: 7.0, hst: 0.0 },
   { name: "Alberta", gst: 5.0, pst: 0.0, hst: 0.0 }
 ])
+
+Status.create!([
+  { status: "Pending" },
+  { status: "Processing" },
+  { status: "Completed" }
+])

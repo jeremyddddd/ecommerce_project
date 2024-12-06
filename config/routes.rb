@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   delete "/cart/remove", to: "carts#remove", as: "remove_from_cart"
   get "/cart", to: "carts#show", as: "cart"
 
-  resource :checkout, only: [ :new, :create ]
+  resources :checkout, only: [ :new, :create, :show ]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
