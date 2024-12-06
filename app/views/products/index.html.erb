@@ -35,11 +35,13 @@
       <% end %>
       <h3><%= product.product_name %></h3>
       <p><%= product.description.truncate(100) %></p>
-      <p><strong>Price:</strong> <%= product.price %></p>
-      <p><strong>Category:</strong> <%= product.category&.category_name %></p>
       <% if product.on_sale %>
-        <p><strong>Sale Price:</strong> <%= product.sale_price %></p>
+        <p><strong>Sale Price:</strong> <%= number_to_currency(product.sale_price) %></p>
+        <p class="original-price"><strong>Original Price:</strong> <%= number_to_currency(product.price) %></p>
+      <% else %>
+        <p><strong>Price:</strong> <%= number_to_currency(product.price) %></p>
       <% end %>
+      <p><strong>Category:</strong> <%= product.category&.category_name %></p>
       <%= link_to "View Details", product_path(product), class: "button" %>
     </div>
   <% end %>

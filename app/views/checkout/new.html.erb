@@ -1,24 +1,5 @@
 <h1>Checkout</h1>
 
-<% if @address_missing || @province_missing %>
-  <p>Please provide the missing details below:</p>
-  <%= form_for(current_user, url: user_registration_path, method: :patch) do |f| %>
-    <% if @address_missing %>
-      <div>
-        <%= f.label :address, "Address" %>
-        <%= f.text_area :address, placeholder: "Enter your address" %>
-      </div>
-    <% end %>
-    <% if @province_missing %>
-      <div>
-        <%= f.label :province_id, "Province" %>
-        <%= f.collection_select :province_id, Province.all, :id, :name, include_blank: "Select your province" %>
-      </div>
-    <% end %>
-    <%= f.submit "Update Details" %>
-  <% end %>
-<% end %>
-
 <h2>Cart Summary</h2>
 <table>
   <thead>
