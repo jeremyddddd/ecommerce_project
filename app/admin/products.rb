@@ -1,5 +1,5 @@
 ActiveAdmin.register Product do
-  permit_params :product_name, :description, :price, :sale_price, :on_sale, :stock_quantity, :category_id, :image
+  permit_params :product_name, :description, :price, :sale_price, :on_sale, :stock_quantity, :category_id, :image, :remove_image
 
   filter :created_at
   filter :on_sale
@@ -63,7 +63,19 @@ ActiveAdmin.register Product do
       f.input :stock_quantity
       f.input :category, as: :select, collection: Category.all.pluck(:category_name, :id)
       f.input :image, as: :file, hint: (f.object.image.attached? ? image_tag(url_for(f.object.image), size: "100x100") : "No image uploaded")
+      if f.object.image.attached?
+        f.input :remove_image, as: :boolean, label: "Remove current image"
+      end
     end
     f.actions
+  end
+
+  controller do
+    def update
+      if params[:product][:remove_image] == "1"
+        resource.image.purge
+      end
+      super
+    end
   end
 end

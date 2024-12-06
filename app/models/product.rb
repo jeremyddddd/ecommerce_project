@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   has_many :orders, through: :order_details
   has_one_attached :image
 
+  attr_accessor :remove_image
+
   def self.ransackable_attributes(auth_object = nil)
     [ "category_id", "created_at", "description", "id", "price", "product_name", "stock_quantity", "updated_at" ]
   end
