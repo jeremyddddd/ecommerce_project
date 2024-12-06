@@ -14,6 +14,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  post "/cart/add", to: "carts#add", as: "add_to_cart"
+  patch "/cart/update", to: "carts#update", as: "update_cart"
+  delete "/cart/remove", to: "carts#remove", as: "remove_from_cart"
+  get "/cart", to: "carts#show", as: "cart"
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

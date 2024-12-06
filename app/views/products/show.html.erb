@@ -8,9 +8,18 @@
   <% end %>
 
   <p><strong>Description:</strong> <%= @product.description %></p>
-  <p><strong>Price:</strong> <%= @product.price %></p>
+  <p><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
   <p><strong>Stock Quantity:</strong> <%= @product.stock_quantity %></p>
   <p><strong>Category:</strong> <%= @product.category&.category_name %></p>
+
+  <%= form_with url: add_to_cart_path, method: :post, local: true do |f| %>
+    <%= hidden_field_tag :product_id, @product.id %>
+    <div class="cart-actions">
+      <label for="quantity"><strong>Quantity:</strong></label>
+      <%= number_field_tag :quantity, 1, min: 1, class: "quantity-field" %>
+      <%= f.submit "Add to Cart", class: "button add-to-cart" %>
+    </div>
+  <% end %>
 
   <%= link_to "Back to Products", products_path, class: "button" %>
 </div>
@@ -24,6 +33,15 @@
   .product-details img {
     margin-bottom: 20px;
   }
+  .cart-actions {
+    margin-top: 20px;
+  }
+  .quantity-field {
+    width: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+  }
   .button {
     display: inline-block;
     margin-top: 20px;
@@ -35,5 +53,8 @@
   }
   .button:hover {
     background-color: #0056b3;
+  }
+  .add-to-cart {
+    margin-top: 0;
   }
 </style>
