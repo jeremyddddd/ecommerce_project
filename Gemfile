@@ -26,6 +26,7 @@ gem "sass-rails"
 gem "sassc-rails"
 gem "ransack"
 gem "kaminari"
+gem "stripe"
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
