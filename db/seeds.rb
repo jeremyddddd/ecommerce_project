@@ -23,9 +23,9 @@ Page.create(title: "About", content: "This is the about page content.", slug: "a
 Page.create(title: "Contact", content: "This is the contact page content.", slug: "contact")
 
 Province.create([
-  { name: "Manitoba" },
-  { name: "Ontario" },
-  { name: "Quebec" },
-  { name: "British Columbia" },
-  { name: "Alberta" }
+  { name: "Manitoba", gst: 5.0, pst: 7.0, hst: 0.0 },
+  { name: "Ontario", gst: 5.0, pst: 0.0, hst: 13.0 },
+  { name: "Quebec", gst: 5.0, pst: 9.975, hst: 0.0 },
+  { name: "British Columbia", gst: 5.0, pst: 7.0, hst: 0.0 },
+  { name: "Alberta", gst: 5.0, pst: 0.0, hst: 0.0 }
 ])

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "checkout/new"
+  get "checkout/create"
   get "static_pages/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
   patch "/cart/update", to: "carts#update", as: "update_cart"
   delete "/cart/remove", to: "carts#remove", as: "remove_from_cart"
   get "/cart", to: "carts#show", as: "cart"
+
+  resource :checkout, only: [ :new, :create ]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
