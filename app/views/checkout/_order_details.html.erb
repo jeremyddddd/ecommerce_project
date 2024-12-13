@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order_items.each do |item| %>
+      <tr>
+        <td><%= item[:product].product_name %></td>
+        <td><%= item[:quantity] %></td>
+        <td><%= number_to_currency(item[:price]) %></td>
+        <td><%= number_to_currency(item[:quantity] * item[:price]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -14,6 +14,14 @@ Rails.application.routes.draw do
     resources :products, only: :index
   end
 
+  resources :checkout, only: [ :new, :create, :show ] do
+    collection do
+      get :cancel
+      get :success
+      post :create_payment
+    end
+  end
+
   devise_for :users
 
   post "/cart/add", to: "carts#add", as: "add_to_cart"

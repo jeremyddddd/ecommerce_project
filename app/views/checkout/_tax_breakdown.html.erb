@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>Tax Type</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GST</td>
+      <td><%= number_to_currency(@gst) %></td>
+    </tr>
+    <tr>
+      <td>PST</td>
+      <td><%= number_to_currency(@pst) %></td>
+    </tr>
+    <tr>
+      <td>HST</td>
+      <td><%= number_to_currency(@hst) %></td>
+    </tr>
+  </tbody>
+</table>

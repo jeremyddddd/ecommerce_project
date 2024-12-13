@@ -4,26 +4,7 @@
 <p><strong>Order Number:</strong> <%= @order.id %></p>
 
 <h2>Order Details</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order_items.each do |item| %>
-      <tr>
-        <td><%= item[:product].product_name %></td>
-        <td><%= item[:quantity] %></td>
-        <td><%= number_to_currency(item[:price]) %></td>
-        <td><%= number_to_currency(item[:quantity] * item[:price]) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: "order_details", locals: { order_items: @order_items } %>
 
 <p><strong>Subtotal:</strong> <%= number_to_currency(@subtotal) %></p>
 <p><strong>Taxes:</strong> <%= number_to_currency(@total_taxes) %></p>

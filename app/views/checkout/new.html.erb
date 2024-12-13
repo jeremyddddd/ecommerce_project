@@ -21,34 +21,56 @@
 </table>
 
 <h2>Tax Breakdown</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Tax Type</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GST</td>
-      <td><%= number_to_currency(@gst) %></td>
-    </tr>
-    <tr>
-      <td>PST</td>
-      <td><%= number_to_currency(@pst) %></td>
-    </tr>
-    <tr>
-      <td>HST</td>
-      <td><%= number_to_currency(@hst) %></td>
-    </tr>
-  </tbody>
-</table>
+<%= render partial: "tax_breakdown", locals: { gst: @gst, pst: @pst, hst: @hst } %>
 
 <p><strong>Subtotal:</strong> <%= number_to_currency(@subtotal) %></p>
 <p><strong>Total Taxes:</strong> <%= number_to_currency(@total_taxes) %></p>
 <p><strong>Grand Total:</strong> <%= number_to_currency(@total) %></p>
 
-<%= button_to "Confirm and Place Order", checkout_index_path, method: :post, class: "button" %>
+<button id="stripe-checkout-button" class="button">Pay with Stripe</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const stripeButton = document.getElementById("stripe-checkout-button");
+
+    if (!stripeButton) {
+      console.error("Stripe button not found in DOM!");
+      return;
+    }
+
+    stripeButton.addEventListener("click", async () => {
+      try {
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+
+        const response = await fetch("<%= create_payment_checkout_index_path %>", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": token,
+          },
+          body: JSON.stringify({}),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const session = await response.json();
+
+        const stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>");
+        const { error } = await stripe.redirectToCheckout({ sessionId: session.id });
+
+        if (error) {
+          console.error("Stripe error:", error.message);
+          alert("Payment redirection failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error creating payment session:", error);
+        alert("Something went wrong! Please try again.");
+      }
+    });
+  });
+</script>
 
 <style>
   table {
